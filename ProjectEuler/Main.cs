@@ -2,6 +2,7 @@
 using System.Runtime.Intrinsics.X86;
 using System.Numerics;
 using static ProjectEuler.DateUtils;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler
 {
@@ -9,10 +10,9 @@ namespace ProjectEuler
     {
         static void Main(string[] args)
         {
-            Predicate<DayInfo> countFirstSundays = (DayInfo d) => { return d.Weekday == Weekday.Sunday && d.DayNumber == 1; };
+            var factorial = MathUtils.GetFactorial(100);
 
-            var count = DateUtils.CountDays(1901, 2000, Weekday.Tuesday, countFirstSundays);
-            Console.WriteLine(count);
+            Console.WriteLine(factorial.GetDigitsSum());
         }
     }
 }

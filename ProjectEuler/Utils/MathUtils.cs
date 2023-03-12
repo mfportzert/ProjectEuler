@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace ProjectEuler
 {
-    public static class Utils
+    public static class MathUtils
     {
         public static List<int> GeneratePrimes(int nbPrimes)
         {
@@ -109,6 +110,13 @@ namespace ProjectEuler
             }
             return res;
         }
+
+        public static BigInteger GetFactorial(int number)
+        {
+            BigInteger result = number;
+            for (int i = number - 1; i > 1; i--)
+                result *= i;
+            return result;
+        }
     }
 }
-

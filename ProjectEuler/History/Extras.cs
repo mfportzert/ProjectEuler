@@ -13,7 +13,7 @@ namespace ProjectEuler
             var hasExtraDigit = false;
             if (longest.Length == shortest.Length)
                 hasExtraDigit = (longest[0] - '0') + (shortest[0] - '0') > 9;
-            if (longest.Length > shortest.Length &&
+            else if (longest.Length > shortest.Length &&
                 (longest[longest.Length - shortest.Length] - '0') + (shortest[0] - '0') > 9)
             {
                 int tmpIndex = (longest.Length - shortest.Length) - 1;
