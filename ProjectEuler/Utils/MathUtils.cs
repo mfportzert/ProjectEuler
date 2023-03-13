@@ -80,6 +80,23 @@ namespace ProjectEuler
             return nbDivisors;
         }
 
+        public static int GetProperDivisorsSum(int n)
+        {
+            int sum = 0;
+            var sqrt = Math.Sqrt(n);
+            for (int i = 1; i <= sqrt; i++)
+            {
+                if (n % i == 0)
+                {
+                    sum += i;
+                    var opposite = n / i;
+                    if (i > 1 && i != opposite)
+                        sum += opposite;
+                }
+            }
+            return sum;
+        }
+
         // https://en.wikipedia.org/wiki/Binomial_coefficient
         // https://stackoverflow.com/a/55020224
         public static double BinomialCoefficient(int numerator, int denominator)
