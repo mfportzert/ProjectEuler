@@ -12,20 +12,10 @@ namespace ProjectEuler
         {
             var sum = 0;
             var limit = 10000;
-            var primes = MathUtils.GeneratePrimesUntilLimit(limit);
-            var dividersSums = new int[limit];
-            for (int i = 0; i < limit; i++)
+            var amicables = MathUtils.FindAmicableNumbers(limit);
+            foreach (var amicable in amicables)
             {
-                var dividersSum = MathUtils.GetProperDivisorsSum(i);
-                dividersSums[i] = dividersSum;
-                //Console.WriteLine(i+" "+dividersSum);
-                if (dividersSum < i)
-                {
-                    if (dividersSums[dividersSum] == i)
-                    {
-                        sum += i + dividersSum;
-                    }
-                }
+                sum += amicable;
             }
 
             Console.WriteLine(sum);

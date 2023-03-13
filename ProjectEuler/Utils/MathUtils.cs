@@ -135,5 +135,26 @@ namespace ProjectEuler
                 result *= i;
             return result;
         }
+
+        public static List<int> FindAmicableNumbers(int limit)
+        {
+            List<int> amicables = new List<int>();
+            var dividersSums = new int[limit];
+            for (int i = 0; i < limit; i++)
+            {
+                var dividersSum = MathUtils.GetProperDivisorsSum(i);
+                dividersSums[i] = dividersSum;
+                //Console.WriteLine(i+" "+dividersSum);
+                if (dividersSum < i)
+                {
+                    if (dividersSums[dividersSum] == i)
+                    {
+                        amicables.Add(i);
+                        amicables.Add(dividersSum);
+                    }
+                }
+            }
+            return amicables;
+        }
     }
 }
