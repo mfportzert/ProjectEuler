@@ -6,7 +6,7 @@ namespace ProjectEuler
 {
     public static class MathUtils
     {
-        public static List<int> GeneratePrimes(int nbPrimes)
+        public static List<int> GetPrimes(int nbPrimes)
         {
             List<int> primes = new List<int>(new int[] { 2, 3 });
             int primesCount = 2;
@@ -30,7 +30,7 @@ namespace ProjectEuler
             return primes;
         }
 
-        public static List<int> GeneratePrimesUntilLimit(int limit)
+        public static List<int> GetPrimesUntilLimit(int limit)
         {
             List<int> primes = new List<int>(new int[] { 2, 3 });
             int primesCount = 2;
@@ -155,6 +155,18 @@ namespace ProjectEuler
                 }
             }
             return amicables;
+        }
+
+        public static List<int> GetAbundantNumbers(int limit)
+        {
+            var numbers = new List<int>();
+            for (int i = 1; i < limit; i++)
+            {
+                var divisorsSum = GetProperDivisorsSum(i);
+                if (divisorsSum > i)
+                    numbers.Add(i);
+            }
+            return numbers;
         }
     }
 }

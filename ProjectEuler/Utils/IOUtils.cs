@@ -6,6 +6,7 @@ namespace ProjectEuler
 {
     public static class IOUtils
     {
+        // Ex: LoadFileContent("ProjectEuler.Assets.my_file.txt");
         public static string LoadFileContent(string resourceName)
         {
             var assembly = Assembly.GetExecutingAssembly();

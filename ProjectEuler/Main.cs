@@ -8,30 +8,31 @@ namespace ProjectEuler
 {
     internal class Program
     {
-        public static string s_AssetsPath = "ProjectEuler.Assets.";
-
         static void Main(string[] args)
         {
-            var resourceName = s_AssetsPath + "p022_names.txt";
-            var namesStr = IOUtils.LoadFileContent(resourceName);
+            int limit = 28123;
+            var abundants = MathUtils.GetAbundantNumbers(limit);
+            var nbAbundants = abundants.Count;
 
-            namesStr = namesStr.Replace("\"", "");
-            var names = namesStr.Split(',');
-            var sortedNames = names.OrderBy(x => x).ToArray();
-
-            double total = 0;
-            var count = sortedNames.Length;
-            for (int i = 0; i < count; i++)
+            var areAbundantSums = new bool[limit];
+            for (int i = 0; i < nbAbundants; ++i)
             {
-                var nameSum = 0;
-                var name = sortedNames[i];
-                foreach (char c in name)
-                    nameSum += (c - 'A') + 1;
-
-                total += nameSum * (i + 1);
+                var valueA = abundants[i];
+                for (int j = 0; j < nbAbundants; ++j)
+                {
+                    var valueB = abundants[j];
+                    if (valueA + valueB < 28123)
+                        areAbundantSums[valueA + valueB] = true;
+                }
             }
 
-            Console.WriteLine(total);
+            var sum = 0;
+            for (int i = 0; i < areAbundantSums.Length; i++)
+            {
+                if (!areAbundantSums[i])
+                    sum += i;
+            }
+            Console.WriteLine(sum);
         }
     }
 }
