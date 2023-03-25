@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler
 {
@@ -167,6 +168,71 @@ namespace ProjectEuler
                     numbers.Add(i);
             }
             return numbers;
+        }
+
+        // Example: [0,1,2,3,4] is given, permutation 12
+        // 
+        // [0,1,2,3,4] is 5 elements
+        //
+        // 4 3 2 1 0  -> !4 !3 !2 !1 !0 -> 24 6 2 1 0
+        //
+        // We want permutation 12:
+        // -> Remove 1, take 11
+        // -> 11 < 24.. skip first digit
+        // -> 11 > 6 -> Floor(11 / 6) = 1; 11 % 6 = 5
+        // -> 5 > 2 -> Floor(5 / 2) = 2; 5 % 2 = 1
+        // -> 1 / 1 = 1; 1 % 1 = 0
+        // -> 0
+        //
+        // Result:
+        // [0, 1, 2, 1] -> (0 x 24) + (1 x 6) + (2 x 2) + (1 x 1) + 1 
+        // 
+        // Next: shift [0, 1, 2, 3, 4] using [0, 1, 2, 1], left to right...
+        //  -> [0, 1, 2, 3, 4] shifted by [0, --> 1 <--, 2, 1] (from this index, take 1 index to the right and shift it here)
+        //  -> [0, 2, 1, 3, 4] shifted by [0, 1, --> 2 <--, 1] (from this index, take 2 indexes to the right here and shift it here)
+        //  -> [0, 2, 4, 1, 3] shifted by [0, 1, 2, --> 1 <--] (same rule)
+        //  -> Permutation 12 is [0, 2, 4, 3, 1]
+        //
+        public static void ApplyLexicographicPermutation(char[] array, int permutationNumber)
+        {
+            if (permutationNumber <= 1)
+                return;
+
+            var totalPermutations = (int)GetFactorial(array.Length);
+            if (permutationNumber > totalPermutations)
+                return; // permutation doesn't exist
+
+            int[] factorials = new int[array.Length - 1];
+            for (int i = 0; i < factorials.Length; i++)
+                factorials[i] = (int) GetFactorial(factorials.Length - i);
+
+            double tmpPermuationsNumber = permutationNumber;
+            tmpPermuationsNumber--;
+
+            // calculate shifts
+            int[] shifts = new int[factorials.Length];
+            for (int i = 0; i < factorials.Length; i++)
+            {
+                if (permutationNumber < factorials[i])
+                    continue;
+
+                var dividedCount = tmpPermuationsNumber / factorials[i];
+                shifts[i] = (int)Math.Floor(dividedCount);
+
+                tmpPermuationsNumber -= factorials[i] * shifts[i];
+            }
+
+            //Console.WriteLine(string.Join("", shifts));
+
+            // Apply shifts
+            for (int i = 0; i < shifts.Length; i++)
+            {
+                if (shifts[i] == 0)
+                    continue;
+
+                array.ShiftIndexTo(i + shifts[i], i);
+            }
+            //Console.WriteLine(string.Join("", array));
         }
     }
 }

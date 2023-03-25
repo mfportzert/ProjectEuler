@@ -10,29 +10,15 @@ namespace ProjectEuler
     {
         static void Main(string[] args)
         {
-            int limit = 28123;
-            var abundants = MathUtils.GetAbundantNumbers(limit);
-            var nbAbundants = abundants.Count;
-
-            var areAbundantSums = new bool[limit];
-            for (int i = 0; i < nbAbundants; ++i)
+            var digits = new char[]
             {
-                var valueA = abundants[i];
-                for (int j = 0; j < nbAbundants; ++j)
-                {
-                    var valueB = abundants[j];
-                    if (valueA + valueB < 28123)
-                        areAbundantSums[valueA + valueB] = true;
-                }
-            }
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+            };
 
-            var sum = 0;
-            for (int i = 0; i < areAbundantSums.Length; i++)
-            {
-                if (!areAbundantSums[i])
-                    sum += i;
-            }
-            Console.WriteLine(sum);
+
+            MathUtils.ApplyLexicographicPermutation(digits, 1000000);
+            var resultStr = string.Join("", digits);
+            Console.WriteLine(resultStr);
         }
     }
 }
