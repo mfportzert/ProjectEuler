@@ -14,5 +14,10 @@ namespace ProjectEuler.Extensions
                 sum += strValue[i] - '0';
             return sum;
         }
+
+        public static int GetDigitsCount(this BigInteger value)
+        {
+            return (int) Math.Floor(BigInteger.Log10(value) + 1);
+        }
     }
 }

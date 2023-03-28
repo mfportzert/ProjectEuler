@@ -10,15 +10,18 @@ namespace ProjectEuler
     {
         static void Main(string[] args)
         {
-            var digits = new char[]
+            BigInteger prev = 1;
+            BigInteger fib = 1;
+            int index = 2;
+            while (fib.GetDigitsCount() < 1000)
             {
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-            };
+                var tmp = fib;
+                fib += prev;
+                prev = tmp;
+                index++;
+            }
 
-
-            MathUtils.ApplyLexicographicPermutation(digits, 1000000);
-            var resultStr = string.Join("", digits);
-            Console.WriteLine(resultStr);
+            Console.WriteLine(index);
         }
     }
 }
